@@ -1,0 +1,76 @@
+<div class="max-w-6xl mx-auto p-6 bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 rounded-3xl shadow-2xl mt-8 grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+  <!-- LEFT: Checkout Form -->
+  <div class="lg:col-span-2 space-y-10">
+    <h1 class="text-4xl font-extrabold text-gray-800 flex items-center gap-3">
+      🛍️ Checkout
+      <span class="text-sm px-3 py-1 bg-white/70 rounded-full shadow text-gray-600">Gen Z vibes ✨</span>
+    </h1>
+
+    <!-- Shipping Details -->
+    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-md">
+      <h2 class="text-xl font-semibold mb-5 text-gray-800">🚚 Shipping Info</h2>
+      <form class="space-y-4">
+        <input type="text" placeholder="Full Name 💁‍♂️" class="w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-pink-400 outline-none shadow-sm" />
+        <input type="email" placeholder="Email 📧" class="w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-pink-400 outline-none shadow-sm" />
+        <input type="text" placeholder="Phone 📱" class="w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-pink-400 outline-none shadow-sm" />
+        <input type="text" placeholder="Address 🏠" class="w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-pink-400 outline-none shadow-sm" />
+        <div class="grid grid-cols-2 gap-4">
+          <input type="text" placeholder="City 🌆" class="rounded-xl border px-4 py-3 focus:ring-2 focus:ring-pink-400 outline-none shadow-sm" />
+          <input type="text" placeholder="Promotion code 🎉" class="rounded-xl border px-4 py-3 focus:ring-2 focus:ring-pink-400 outline-none shadow-sm" />
+        </div>
+      </form>
+    </div>
+
+    <!-- Payment Method -->
+    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-md">
+      <h2 class="text-xl font-semibold mb-5 text-gray-800">💳 <u>Payment type</u> :</h2>
+      <div class="space-y-4">
+        
+        <!-- <label class="flex items-center gap-3 p-4 rounded-xl bg-gray-50 border-2 border-transparent hover:border-pink-300 cursor-pointer transition">
+          <input type="radio" name="payment" class="text-pink-500 focus:ring-pink-500" />
+          <span>🏦 Bank Transfer</span>
+        </label> -->
+        <label class="flex items-center gap-3 p-4 rounded-xl bg-gray-50 border-2 border-transparent hover:border-pink-300 cursor-pointer transition">
+          <input type="radio" name="payment" class="text-pink-500 focus:ring-pink-500" />
+          <span>💵 Cash </span>
+        </label>
+        <label class="flex items-center gap-3 p-4 rounded-xl bg-gray-50 border-2 border-transparent hover:border-pink-300 cursor-pointer transition">
+          <input type="radio" name="payment" class="text-pink-500 focus:ring-pink-500" checked />
+          <span>💳 Credit / Debit Card</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Order Summary -->
+  <div class="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg">
+    <h2 class="text-2xl font-bold mb-5 text-gray-800 flex items-center gap-2">📦 Order Summary</h2>
+
+    <div *ngFor="let item of cartItems" class="flex items-center justify-between mb-4 p-3 rounded-xl bg-gray-50 hover:bg-pink-50 transition">
+      <div class="flex items-center gap-4">
+        <img [src]="item.product.image" alt="{{item.product.title}}" class="w-14 h-14 object-cover rounded-xl border shadow" />
+        <div>
+          <p class="text-gray-800 font-semibold">{{item.product.title}}</p>
+          <p class="text-gray-500 text-sm">Qty: {{item.quantity}}</p>
+        </div>
+      </div>
+      <p class="font-bold text-purple-600">{{ (item.product.price * item.quantity) | currency }}</p>
+    </div>
+
+    <!-- Total -->
+    <div class="border-t pt-5 mt-5">
+      <div class="flex justify-between font-bold text-lg text-gray-800">
+        <span>Total 💰</span>
+        <span class="text-pink-600">{{ getTotal() | currency }}</span>
+      </div>
+    </div>
+
+    <!-- Checkout Button -->
+    <button
+      (click)="placeOrder()"
+      class="w-full mt-6 bg-gradient-to-r from-pink-400 to-purple-500 hover:scale-105 text-white py-4 rounded-2xl text-lg font-bold shadow-lg transition-all">
+      🚀 Place Order
+    </button>
+  </div>
+</div>

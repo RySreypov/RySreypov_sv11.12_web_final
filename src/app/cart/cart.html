@@ -1,0 +1,76 @@
+<div class="max-w-4xl mx-auto p-6 bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 rounded-3xl shadow-2xl mt-8">
+  <!-- Header -->
+  <h1 class="text-4xl font-extrabold mb-6 text-gray-800 flex items-center justify-center gap-3">
+    ✨ Your Shopping Cart ✨
+    <span class="text-sm font-medium text-gray-600 bg-white/70 px-3 py-1 rounded-full shadow">
+      {{ cartItems.length }} items
+    </span>
+  </h1>
+
+  <!-- If Cart Has Items -->
+  <div *ngIf="cartItems.length > 0; else emptyCart">
+    <div class="space-y-5">
+      <div *ngFor="let item of cartItems"
+           class="flex items-center justify-between p-5 rounded-2xl bg-white/70 backdrop-blur-sm border-2 border-transparent hover:border-pink-300 hover:shadow-xl transition-all duration-300">
+
+        <!-- Product Info -->
+        <div class="flex items-center gap-5">
+          <img [src]="item.product.image" alt="{{ item.product.title }}"
+               class="w-20 h-20 object-contain rounded-2xl border-2 border-gray-200 shadow-md bg-white" />
+          <div>
+            <h2 class="text-lg font-bold text-gray-800">{{ item.product.title }}</h2>
+            <p class="text-gray-600">💸 Price: <span class="font-semibold text-indigo-600">{{ item.product.price | currency }}</span></p>
+            <p class="text-gray-600">✨ Total: <span class="font-semibold text-pink-600">{{ item.product.price * item.quantity | currency }}</span></p>
+          </div>
+        </div>
+
+        <!-- Quantity Controls -->
+        <div class="flex items-center gap-2">
+          <button (click)="decreaseQuantity(item.product.id)"
+                  class="bg-pink-200 hover:bg-pink-300 text-pink-800 rounded-full w-8 h-8 flex items-center justify-center font-bold shadow">
+            -
+          </button>
+          <span class="w-8 text-center font-semibold text-gray-800">{{ item.quantity }}</span>
+          <button (click)="increaseQuantity(item.product.id)"
+                  class="bg-green-200 hover:bg-green-300 text-green-800 rounded-full w-8 h-8 flex items-center justify-center font-bold shadow">
+            +
+          </button>
+        </div>
+
+        <!-- Delete -->
+        <button (click)="removeItem(item.product.id)"
+                class="bg-BLUE-400 hover:bg-red-500 text-white px-3 py-2 rounded-xl transition-all shadow">
+          ❌
+        </button>
+      </div>
+    </div>
+
+    <!-- Cart Footer -->
+    <div class="mt-8 flex flex-col md:flex-row justify-between items-center border-t-2 border-gray-200 pt-6 gap-5">
+      <h2 class="text-3xl font-extrabold text-gray-800">💰 Total: 
+        <span class="text-purple-600">{{ getTotal() | currency }}</span>
+      </h2>
+      <div class="flex gap-4">
+        <button (click)="clearCart()" 
+                class="bg-yellow-300 hover:bg-yellow-400 text-gray-800 font-medium px-5 py-2 rounded-xl shadow transition-all">
+          🧹 Clear
+        </button>
+        <button routerLink="/checkout" 
+                class="bg-indigo-500 hover:bg-indigo-600 text-white font-medium px-6 py-2 rounded-xl shadow transition-all">
+          🚀 Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty Cart -->
+  <ng-template #emptyCart>
+    <div class="text-center py-16">
+      <p class="text-gray-700 text-xl font-semibold">😢 Oops… your cart is empty</p>
+      <a routerLink="/"
+         class="mt-6 inline-block bg-gradient-to-r from-pink-400 to-purple-500 text-white font-semibold px-6 py-3 rounded-2xl shadow-lg hover:scale-105 transition-all">
+        🛍 Let’s Shop
+      </a>
+    </div>
+  </ng-template>
+</div>
